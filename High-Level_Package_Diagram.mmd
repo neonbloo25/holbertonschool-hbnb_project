@@ -1,0 +1,23 @@
+%%This is the provided example
+
+%%Diagram type
+
+classDiagram
+
+%%Nodes and Contents
+
+class PresentationLayer {
+    <<Interface>>
+    +ServiceAPI
+}
+class BusinessLogicLayer {
+    +ModelClasses
+}
+class PersistenceLayer {
+    +DatabaseAccess
+}
+
+%%Element Display order and line labels
+
+PresentationLayer --> BusinessLogicLayer : Facade Pattern
+BusinessLogicLayer --> PersistenceLayer : Database Operations
