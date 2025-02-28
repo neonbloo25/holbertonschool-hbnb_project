@@ -1,0 +1,22 @@
+
+%%Diagram Type
+
+sequenceDiagram
+
+    %%Node Layers
+    participant User
+    participant API
+    participant BusinessLogic as Business Logic Layer (Review Model)
+    participant Database as Persistence Layer (Database)
+    
+    %%Layer Dynamics
+    User->>API: POST /reviews {place_id, rating, comment}
+    API->>BusinessLogic: validateReview(place_id, rating)
+    BusinessLogic-->>API: Validation Success
+    API->>BusinessLogic: createReview(user_id, place_id, rating, comment)
+    BusinessLogic->>Database: INSERT INTO reviews (user_id, place_id, rating, comment, created_at)
+    Database-->>BusinessLogic: Review Saved
+    BusinessLogic->>Database: UPDATE places SET avg_rating = new_avg WHERE id = place_id
+    Database-->>BusinessLogic: Rating Updated
+    BusinessLogic-->>API: Return Success Response
+    API-->>User: 201 Created {review_id, rating, comment}

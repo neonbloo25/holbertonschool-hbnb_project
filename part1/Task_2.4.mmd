@@ -1,0 +1,20 @@
+
+%%Diagram Type
+
+sequenceDiagram
+
+    %%Node Layers
+
+    participant User
+    participant API
+    participant BusinessLogic as Business Logic Layer (Place Model)
+    participant Database as Persistence Layer (Database)
+
+    %%Node Relations
+
+    User->>API: GET /places?location=NYC&max_price=100
+    API->>BusinessLogic: fetchFilteredPlaces(location, max_price)
+    BusinessLogic->>Database: SELECT * FROM places WHERE location='NYC' AND price <= 100
+    Database-->>BusinessLogic: Return Matching Places
+    BusinessLogic-->>API: Return Place Data
+    API-->>User: 200 OK {list of places}
