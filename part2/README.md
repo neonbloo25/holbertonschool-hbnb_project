@@ -1,6 +1,6 @@
-# HBnB - Holiday Booking (HBnB) Project
+# Holberton BnB - Project
 
-The **HBnB** project is a platform designed to manage holiday bookings. This project focuses on building a scalable, RESTful API using **Flask** and **flask-restx**. It includes functionality for managing users, places, reviews, and amenities.
+The **Holberton BnB** project is a platform designed to manage bookings. This project focuses on building a scalable, RESTful API using **Flask** and **flask-restx**. It includes functionality for managing users, places, reviews, and amenities.
 
 This README provides an overview of the project, including how to set up and run the application.
 
@@ -9,13 +9,14 @@ This README provides an overview of the project, including how to set up and run
 - [Project Description](#project-description)
 - [Setup Instructions](#setup-instructions)
 - [Project Structure](#project-structure)
+- [Business Logic Layer](#business-logic-layer)
 - [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Project Description
 
-The **HBnB** project is a backend API designed to handle user accounts, places (e.g., apartments, hotels), reviews, and amenities (e.g., Wi-Fi, pool). The application is modular, using the **Facade pattern** to separate the logic into layers for better maintainability and scalability.
+The **Holberton BnB** project is a backend API designed to handle user accounts, places (e.g., apartments, hotels), reviews, and amenities (e.g., Wi-Fi, pool). The application is modular, using the **Facade pattern** to separate the logic into layers for better maintainability and scalability.
 
 ### Technologies Used:
 - **Python** (Flask for web framework)
