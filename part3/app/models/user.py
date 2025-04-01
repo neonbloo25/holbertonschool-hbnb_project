@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from flask_bcrypt import Bcrypt
 import re
 
 from app.models.place import Place
@@ -29,6 +30,12 @@ class User(BaseModel):
         self.email = email
         self.is_admin = is_admin
         self.places = []  # List to store places owned by the user
+
+    def hash_password(self, password):
+        self.password = Bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def verify_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
 
     def add_place(self, place):
         """Add a place to the user's list of owned places."""
