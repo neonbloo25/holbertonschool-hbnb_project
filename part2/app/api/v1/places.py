@@ -70,3 +70,25 @@ class PlaceResource(Resource):
         """Update a place's information"""
         # Placeholder for the logic to update a place by ID
         pass
+
+    @api.route('/places/<place_id>')
+    class AdminPlaceModify(Resource):
+        @jwt_required()
+        @api.expect(place_model)
+        @api.response(200, 'Place updated successfully')
+        @api.response(404, 'Place not found')
+        @api.response(400, 'Invalid input data')
+        def put(self, place_id):
+            """Update a place's information"""
+            current_user = get_jwt_identity()
+            place = facade.get_place(place_id)
+
+            if not place:
+                return {"error": "Place not found"}, 404
+
+            if place.owner_id != current_user["id"]:
+                return {"error": "Unauthorized action"}, 403
+
+            updated_data = api.payload
+            updated_place = facade.update_place(place_id, updated_data)
+            return updated_place.to_dict(), 200

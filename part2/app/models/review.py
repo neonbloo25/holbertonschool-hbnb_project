@@ -1,39 +1,47 @@
 import uuid
+from app import db
 from datetime import datetime
-
-class BaseModel:
-    def __init__(self):
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-
-    def save(self):
-        """Update the updated_at timestamp whenever the object is modified"""
-        self.updated_at = datetime.now()
-
-    def update(self, data):
-        """Update the attributes of the object based on the provided dictionary"""
-        for key, value in data.items():
-            if hasattr(self, key):
-                setattr(self, key, value)
-        self.save()  # Update the updated_at timestamp
+from .base_model import BaseModel
 
 class Review(BaseModel):
+    """Review Table Format"""
+    __tablename__ = 'reviews'
+
+    text = db.Column(db.Text, nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    place_id = db.Column(db.Integer, db.ForeignKey('places.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    place = db.relationship('Place', back_populates='reviews')
+    user = db.relationship('User', back_populates='reviews')
+
+    __table_args__ = (
+        db.CheckConstraint('rating >= 1 AND rating <= 5', name='rating_range'),
+    )
+
     def __init__(self, text, rating, place, user):
         super().__init__()
-        self.text = self.set_text(text)
-        self.rating = self.set_rating(rating)
-        self.place = place
-        self.user = user
+        self.text = self._validate_text(text)
+        self.rating = self._validate_rating(rating)
+        self.place = self._validate_place(place)
+        self.user_id = self._validate_user(user)
 
-    def set_text(self, text):
-        """Ensures the text is provided (required field)."""
-        if not text or len(text.strip()) == 0:
-            raise ValueError("Review text is required and cannot be empty.")
-        return text
+    def _validate_text(self, text):
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError("Review text must be a non-empty string")
+        return text.strip()
 
-    def set_rating(self, rating):
-        """Ensures the rating is between 1 and 5."""
-        if rating < 1 or rating > 5:
-            raise ValueError("Rating must be an integer between 1 and 5.")
+    def _validate_rating(self, rating):
+        if not isinstance(rating, int) or not (1 <= rating <= 5):
+            raise ValueError("Rating must be an integer between 1 and 5")
         return rating
+
+    def _validate_place(self, place):
+        if not isinstance(place, Place):
+            raise ValueError("Place must be a valid Place instance")
+        return place.id
+
+    def _validate_user(self, user):
+        if not isinstance(user, User):
+            raise ValueError("User must be a valid User instance")
+        return user.id

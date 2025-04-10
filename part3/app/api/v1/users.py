@@ -3,11 +3,11 @@ from app.services import facade
 
 api = Namespace('users', description='User operations')
 
-# Define the user model for input validation and documentation
 user_model = api.model('User', {
     'first_name': fields.String(required=True, description='First name of the user'),
     'last_name': fields.String(required=True, description='Last name of the user'),
-    'email': fields.String(required=True, description='Email of the user')
+    'email': fields.String(required=True, description='Email of the user'),
+    'password': fields.String(required=True, description='Password of the user')
 })
 
 @api.route('/')

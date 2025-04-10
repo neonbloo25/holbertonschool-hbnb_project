@@ -41,3 +41,13 @@ class AmenityResource(Resource):
         """Update an amenity's information"""
         # Placeholder for the logic to update an amenity by ID
         pass
+
+@api.route('/amenities/')
+class AdminAmenityCreate(Resource):
+    @jwt_required()
+    def post(self):
+        current_user = get_jwt_identity()
+        if not current_user.get('is_admin'):
+            return {'error': 'Admin privileges required'}, 403
+
+        pass
