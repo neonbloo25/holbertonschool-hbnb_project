@@ -1,7 +1,14 @@
+#!/usr/bin/python3
 from flask_restx import Namespace, Resource, fields
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.services import facade
+from app.models import Place
+import logging
 
 api = Namespace('places', description='Place operations')
+
+# Set up logging for this file
+logger = logging.getLogger(__name__)
 
 # Define the models for related entities
 amenity_model = api.model('PlaceAmenity', {
@@ -44,14 +51,49 @@ class PlaceList(Resource):
     @api.response(400, 'Invalid input data')
     def post(self):
         """Register a new place"""
-        # Placeholder for the logic to register a new place
-        pass
+        place_data = api.payload
+        print(f"🔧 Received payload for new place: {place_data}")
+
+        owner = facade.get_user(place_data['owner_id'])
+        if not owner:
+            print(f"⚠️ Owner with ID {place_data['owner_id']} not found.")
+            return {'error': 'Owner not found'}, 400
+
+        new_place = Place(
+            title=place_data['title'],
+            description=place_data.get('description'),
+            price=place_data['price'],
+            latitude=place_data['latitude'],
+            longitude=place_data['longitude'],
+            owner_id=place_data['owner_id']
+        )
+        facade.create_place(new_place)
+
+        print(f"✅ Place with ID {new_place.id} created successfully.")
+        return {'id': new_place.id, 'message': 'Place successfully created'}, 201
 
     @api.response(200, 'List of places retrieved successfully')
     def get(self):
         """Retrieve a list of all places"""
-        # Placeholder for logic to return a list of all places
-        pass
+        print("🔧 Fetching all places from the database.")
+        places = facade.get_all_places()
+
+        places_data = [{
+            'id': place.id,
+            'title': place.title,
+            'description': place.description,
+            'price': place.price,
+            'latitude': place.latitude,
+            'longitude': place.longitude,
+            'owner_id': place.owner_id,
+            'owner': place.owner.to_dict(),
+            'amenities': [amenity.to_dict() for amenity in place.amenities],
+            'reviews': [review.to_dict() for review in place.reviews]
+        } for place in places]
+
+        print(f"✅ Returning {len(places_data)} places.")
+        return places_data, 200
+
 
 @api.route('/<place_id>')
 class PlaceResource(Resource):
@@ -59,8 +101,26 @@ class PlaceResource(Resource):
     @api.response(404, 'Place not found')
     def get(self, place_id):
         """Get place details by ID"""
-        # Placeholder for the logic to retrieve a place by ID, including associated owner and amenities
-        pass
+        print(f"🔧 Fetching place with ID {place_id}")
+        place = facade.get_place(place_id)
+
+        if not place:
+            print(f"⚠️ Place with ID {place_id} not found.")
+            return {'error': 'Place not found'}, 404
+
+        print(f"✅ Returning details for place with ID {place_id}")
+        return {
+            'id': place.id,
+            'title': place.title,
+            'description': place.description,
+            'price': place.price,
+            'latitude': place.latitude,
+            'longitude': place.longitude,
+            'owner_id': place.owner_id,
+            'owner': place.owner.to_dict(),
+            'amenities': [amenity.to_dict() for amenity in place.amenities],
+            'reviews': [review.to_dict() for review in place.reviews]
+        }, 200
 
     @api.expect(place_model)
     @api.response(200, 'Place updated successfully')
@@ -68,5 +128,21 @@ class PlaceResource(Resource):
     @api.response(400, 'Invalid input data')
     def put(self, place_id):
         """Update a place's information"""
-        # Placeholder for the logic to update a place by ID
-        pass
+        current_user = get_jwt_identity()
+        print(f"🔧 User {current_user['id']} attempting to update place {place_id}")
+
+        place = facade.get_place(place_id)
+
+        if not place:
+            print(f"⚠️ Place with ID {place_id} not found.")
+            return {'error': 'Place not found'}, 404
+
+        if place.owner_id != current_user['id']:
+            print(f"⚠️ User {current_user['id']} is not authorized to update place {place_id}.")
+            return {'error': 'Unauthorized action'}, 403
+
+        updated_data = api.payload
+        updated_place = facade.update_place(place_id, updated_data)
+
+        print(f"✅ Place with ID {place_id} updated successfully.")
+        return updated_place.to_dict(), 200
