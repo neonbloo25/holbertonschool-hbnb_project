@@ -1,3 +1,6 @@
 .venv
 __pycache__
 test*.*
+/tests
+/part3_(old)
+/part2
