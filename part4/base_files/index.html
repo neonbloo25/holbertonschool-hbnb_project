@@ -5,24 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Places</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 <body>
     <header>
+        <img src="images/logo.png" alt="HBnB Logo" class="logo">
         <nav>
             <a href="login.html" id="login-link">Login</a>
+            <a href="add_review.html" id="add-review-link" style="display: none;">Add Review</a>
+            <a href="logout.html" id="logout-link" style="display: none;">Logout</a>
         </nav>
     </header>
+
     <main>
         <section id="filter">
             <label for="price-filter">Max Price:</label>
             <select id="price-filter">
-                <!-- Options will be populated dynamically -->
+                <!-- Options for price filter will be populated dynamically -->
             </select>
         </section>
+
         <section id="places-list">
             <!-- List of places will be populated dynamically -->
         </section>
     </main>
-    <script src="scripts.js"></script>
+
+    <footer>
+        <p>© 2025 HBnB. All rights reserved.</p>
+    </footer>
 </body>
 </html>

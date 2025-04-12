@@ -5,21 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Review</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 <body>
+    <header>
+        <img src="images/logo.png" alt="HBnB Logo" class="logo">
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+
     <main>
-        <!-- Add something to idfentify the place you're reviewing -->
-        <form id="review-form">
-            <h2>Add a Review</h2>
-            <label for="review">Your Review:</label>
-            <textarea id="review" name="review" required></textarea>
-            <label for="rating">Rating:</label>
-            <select id="rating" name="rating" required>
-                <!-- Options for rating -->
-            </select>
-            <button type="submit">Submit Review</button>
-        </form>
+        <section>
+            <h2 id="place-name">Reviewing: [Place]</h2>
+            <form id="review-form">
+                <label for="review">Your Review:</label>
+                <textarea id="review" name="review" required></textarea>
+
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" required>
+                    <option value="">--Select--</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2</option>
+                    <option value="3">3 - Average</option>
+                    <option value="4">4</option>
+                    <option value="5">5 - Excellent</option>
+                </select>
+
+                <button type="submit">Submit Review</button>
+            </form>
+            <p id="review-message" style="margin-top: 10px;"></p>
+        </section>
     </main>
-    <script src="scripts.js"></script>
+
+    <footer>
+        <p>© 2025 HBnB. All rights reserved.</p>
+    </footer>
 </body>
 </html>

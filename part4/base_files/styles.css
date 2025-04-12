@@ -1,8 +1,4 @@
-/* 
-  This is a SAMPLE File to get you started. Follow the instructions on the project to complete the tasks. 
-  You'll probably need to override some of theese styles.
-*/
-
+/* Reset & Base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -13,20 +9,137 @@
 body {
     background-color: #f4f4f4;
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Header */
 header {
     background-color: #333;
     color: #fff;
-    padding: 1rem;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+}
+
+.login-button {
+    color: #fff;
+    text-decoration: none;
+    background-color: #007bff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Navigation */
+nav {
+    margin-top: 1rem;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
-    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
+/* Main Content */
 main {
     padding: 2rem;
+    flex: 1;
+}
+
+#places-list,
+#place-details,
+#add-review {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Place & Review Cards */
+.place-card,
+.review-card {
+    background-color: #fff;
+    padding: 10px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.details-button {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.details-button:hover {
+    background-color: #218838;
+}
+
+/* Review Section */
+.review-card p {
+    margin: 5px 0;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 400px;
+    margin-top: 1rem;
+}
+
+input, textarea, select, button {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    header, main, footer {
+        padding: 1rem;
+    }
+
+    .place-card, .review-card {
+        margin: 10px;
+    }
+
+    form {
+        width: 100%;
+    }
 }
