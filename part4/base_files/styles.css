@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #f4f4f4;
+    background-color: #fde1b1;
     color: #333;
     min-height: 100vh;
     display: flex;
@@ -16,7 +16,7 @@ body {
 
 /* Header */
 header {
-    background-color: #333;
+    background-color: #e1ad01;
     color: #fff;
     padding: 1rem 2rem;
     display: flex;
@@ -31,13 +31,13 @@ header {
 .login-button {
     color: #fff;
     text-decoration: none;
-    background-color: #007bff;
+    background-color: #ff7300;
     padding: 0.5rem 1rem;
     border-radius: 5px;
 }
 
 .login-button:hover {
-    background-color: #0056b3;
+    background-color: #ff4400;
 }
 
 /* Navigation */
@@ -76,6 +76,12 @@ main {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.place-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
 .details-button {
     background-color: #28a745;
     color: white;
@@ -112,18 +118,18 @@ input, textarea, select, button {
 
 button {
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #ff4400;
     color: white;
     border: none;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #ff4400;
 }
 
 /* Footer */
 footer {
-    background-color: #333;
+    background-color: #e1ad01;
     color: #fff;
     padding: 1rem 2rem;
     text-align: center;
@@ -142,4 +148,11 @@ footer {
     form {
         width: 100%;
     }
+}
+
+.filter-section {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

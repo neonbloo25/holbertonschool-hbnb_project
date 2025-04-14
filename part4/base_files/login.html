@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,32 +8,36 @@
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js" defer></script>
 </head>
+
 <body>
     <header>
         <img src="images/logo.png" alt="HBnB Logo" class="logo">
         <nav>
-            <a href="index.html">Home</a>
+            <button onclick="window.location.href='index.html'" class="login-button">Home</button>
         </nav>
     </header>
 
     <main>
-        <form id="login-form">
-            <h2>Login</h2>
+        <section id="login-section">
+            <form id="login-form">
+                <h2>Login</h2>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
 
-            <button type="submit" class="login-button">Login</button>
+                <button type="submit" class="login-button">Login</button>
 
-            <p id="login-error" style="color: red; display: none; margin-top: 10px;"></p>
-        </form>
+                <p id="login-error" style="color: red; display: none; margin-top: 10px;"></p>
+            </form>
+        </section>
     </main>
 
     <footer>
         <p>© 2025 HBnB. All rights reserved.</p>
     </footer>
 </body>
+
 </html>

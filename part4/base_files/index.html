@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Places</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js" defer></script>
 </head>
+
 <body>
     <header>
         <img src="images/logo.png" alt="HBnB Logo" class="logo">
         <nav>
-            <a href="login.html" id="login-link">Login</a>
-            <a href="add_review.html" id="add-review-link" style="display: none;">Add Review</a>
-            <a href="logout.html" id="logout-link" style="display: none;">Logout</a>
+            <button onclick="window.location.href='login.html'" id="login-link" class="login-button">Login</button>
+            <button onclick="window.location.href='add_review.html'" id="add-review-link" class="login-button" style="display: none;">Add Review</button>
+            <button onclick="window.location.href='logout.html'" id="logout-link" class="login-button" style="display: none;">Logout</button>
         </nav>
     </header>
 
     <main>
-        <section id="filter">
+        <section id="filter" class="filter-section">
             <label for="price-filter">Max Price:</label>
             <select id="price-filter">
-                <!-- Options for price filter will be populated dynamically -->
+                <option value="All">All</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option> 
+                <option value="200">200</option> 
+                <option value="250">250</option> 
             </select>
         </section>
 
         <section id="places-list">
-            <!-- List of places will be populated dynamically -->
+            <!-- Place cards populated via JS -->
         </section>
     </main>
 
     <footer>
         <p>© 2025 HBnB. All rights reserved.</p>
     </footer>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
 </body>
+
 </html>
